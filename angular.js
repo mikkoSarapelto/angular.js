@@ -1071,11 +1071,14 @@ function toJson(obj, pretty) {
  * @returns {Object|Array|string|number} Deserialized JSON string.
  */
 function fromJson(json) {
-  return isString(json)
-      ? JSON.parse(json)
-      : json;
+  if(isString(json)) {
+    var jsonString = json.replace(/\\v/g, "\\u000B");
+    return JSON.parse(jsonString)
+  }
+  else {
+    return json
+  }
 }
-
 
 /**
  * @returns {string} Returns the string representation of the element.
